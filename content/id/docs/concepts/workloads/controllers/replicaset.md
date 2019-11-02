@@ -6,7 +6,7 @@ weight: 10
 
 {{% capture overview %}}
 
-Tujuan dari ReplicaSet adalah untuk memelihara himpunan stabil dari replika Pod yang sedang berjalan pada satu waktu tertentu. Maka dari itu, ReplicaSet seringkali digunakan untuk menjamin ketersediaan dari beberapa Pod identik dalam jumlah tertentu. 
+Tujuan dari ReplicaSet adalah untuk memelihara himpunan stabil dari replika Pod yang sedang berjalan pada satu waktu tertentu. Maka dari itu, ReplicaSet seringkali digunakan untuk menjamin ketersediaan dari beberapa Pod identik dalam jumlah tertentu.
 
 
 {{% /capture %}}
@@ -25,7 +25,7 @@ Sebuah ReplicaSet mengidentifikasi Pod baru untuk diakuisisi menggunakan selekto
 
 Sebuah ReplicaSet memastikan replika-replika pod dalam jumlah yang ditentukan berjalan pada satu waktu tertentu. Namun demikian, sebuah Deployment adalah konsep dengan tingkatan yang lebih tinggi yang mengatur ReplicaSet dan mengubah Pod secara deklaratif serta berbagai fitur bermanfaat lainnya. Maka dari itu, kami merekomendasikan untuk menggunakan Deployment alih-alih menggunakan ReplicaSet secara langsung, kecuali jika kamu membutuhkan orkestrasi pembaruan yang khusus atau tidak membutuhkan pembaruan sama sekali.
 
-Hal ini berarti kamu boleh jadi tidak akan membutuhkan manipulasi objek ReplicaSet: Gunakan Deployment dan definisikan aplikasi kamu pada bagian _spec_. 
+Hal ini berarti kamu boleh jadi tidak akan membutuhkan manipulasi objek ReplicaSet: Gunakan Deployment dan definisikan aplikasi kamu pada bagian _spec_.
 
 ## Contoh
 
@@ -127,9 +127,9 @@ metadata:
 
 ## Akuisisi Pod Non-Templat
 
-Walaupun kamu bisa membuat Pod biasa tanpa masalah, sangat direkomendasikan untuk memastikan Pod tersebut tidak memiliki label yang sama dengan selektor dari salah satu ReplicaSet yang kamu miliki. Hal in disebabkan sebuah ReplicaSet tidak dibatasi untuk memilki Pod sesuai dengan templatnya -- ReplicaSet dapat mengakuisisi Pod lain dengan cara yang telah dijelaskan pada bagian sebelumnya. 
+Walaupun kamu bisa membuat Pod biasa tanpa masalah, sangat direkomendasikan untuk memastikan Pod tersebut tidak memiliki label yang sama dengan selektor dari salah satu ReplicaSet yang kamu miliki. Hal in disebabkan sebuah ReplicaSet tidak dibatasi untuk memilki Pod sesuai dengan templatnya -- ReplicaSet dapat mengakuisisi Pod lain dengan cara yang telah dijelaskan pada bagian sebelumnya.
 
-Mengambil contoh ReplicaSet _frontend_ sebelumnya, dan Pod yang ditentukan pada _manifest_ berikut: 
+Mengambil contoh ReplicaSet _frontend_ sebelumnya, dan Pod yang ditentukan pada _manifest_ berikut:
 
 {{< codenew file="pods/pod-rs.yaml" >}}
 
@@ -167,7 +167,7 @@ Dan selanjutnya membuat ReplicaSet maka:
 kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 ```
 
-Kamu akan melihat bahwa ReplicaSet telah mengakuisisi Pod dan hanya membuat Pod yang baru sesuai dengan `spec` yang ditentukan hingga jumlah dari Pod yang baru dan yang orisinil sesuai dengan jumlah yang diinginkan. Dengan memperoleh Pod: 
+Kamu akan melihat bahwa ReplicaSet telah mengakuisisi Pod dan hanya membuat Pod yang baru sesuai dengan `spec` yang ditentukan hingga jumlah dari Pod yang baru dan yang orisinil sesuai dengan jumlah yang diinginkan. Dengan memperoleh Pod:
 ```shell
 kubectl get Pods
 ```
@@ -190,10 +190,10 @@ Sebuah ReplicaSet juga membutuhkan [bagian `.spec`](https://git.k8s.io/community
 
 ### Templat Pod
 
-`.spec.template` adalah sebuah [templat pod](/docs/concepts/workloads/Pods/pod-overview/#pod-templates) yang juga dibutuhkan untuk mempunyai label. Pada contoh `frontend.yaml` kita memiliki satu label: `tier: frontend`. 
+`.spec.template` adalah sebuah [templat pod](/docs/concepts/workloads/Pods/pod-overview/#pod-templates) yang juga dibutuhkan untuk mempunyai label. Pada contoh `frontend.yaml` kita memiliki satu label: `tier: frontend`.
 Hati-hati agar tidak tumpang tindih dengan selektor dari _controller_ lain, agar mereka tidak mencoba untuk mengadopsi Pod ini.
 
-Untuk _field_ [_restart policy_](/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy) dari templat, `.spec.template.spec.restartPolicy`, nilai yang diperbolehkan hanyalah `Always`, yang merupakan nilai _default_. 
+Untuk _field_ [_restart policy_](/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy) dari templat, `.spec.template.spec.restartPolicy`, nilai yang diperbolehkan hanyalah `Always`, yang merupakan nilai _default_.
 
 ### Selektor Pod
 
@@ -213,7 +213,7 @@ Untuk 2 ReplicaSet dengan nilai `.spec.selector` yang sama tetapi memiliki nilai
 
 Kamu dapat menentukan jumlah Pod yang seharusnya berjalan secara konkuren dengan mengatur nilai dari `.spec.replicas`. ReplicaSet akan membuat/menghapus Pod-nya hingga jumlahnya sesuai dengan _field_ ini.
 
-Jika nilai `.spec.replicas` tidak ditentukan maka akan diatur ke nilai _default_ 1. 
+Jika nilai `.spec.replicas` tidak ditentukan maka akan diatur ke nilai _default_ 1.
 
 ## Menggunakan ReplicaSet
 
@@ -251,7 +251,7 @@ Kamu dapat menghapus Pod dari ReplicaSet dengan mengubah nilai labelnya. Cara in
 
 ### Mengatur jumlah Pod pada ReplicaSet
 
-Jumlah Pod pada ReplicaSet dapat diatur dengan mengubah nilai dari _field_ `.spec.replicas`. Pengatur ReplicaSet akan memastikan Pod dengan jumlah yang telah ditentukan dan dengan nilai selektor yang sama sedang dalam keadaan berjalan. 
+Jumlah Pod pada ReplicaSet dapat diatur dengan mengubah nilai dari _field_ `.spec.replicas`. Pengatur ReplicaSet akan memastikan Pod dengan jumlah yang telah ditentukan dan dengan nilai selektor yang sama sedang dalam keadaan berjalan.
 
 ### Pengaturan jumlah Pod pada ReplicaSet menggunakan Horizontal Pod Autoscaler
 
@@ -265,7 +265,7 @@ Menyimpan _manifest_ ini dalam `hpa-rs.yaml` dan mengirimkannya ke kluster Kuber
 kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml
 ```
 
-Opsi lainnya adalah dengan menggunakan perintah `kubectl autoscale` untuk tujuan yang sama. 
+Opsi lainnya adalah dengan menggunakan perintah `kubectl autoscale` untuk tujuan yang sama.
 
 ```shell
 kubectl autoscale rs frontend --max=10
@@ -285,11 +285,11 @@ Tidak seperti pada kasus ketika pengguna secara langsung membuat Pod, ReplicaSet
 
 ### Job
 
-Gunakan [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) alih-alih ReplicaSet untuk Pod yang diharapkan untuk diterminasi secara sendirinya. 
+Gunakan [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) alih-alih ReplicaSet untuk Pod yang diharapkan untuk diterminasi secara sendirinya.
 
 ### DaemonSet
 
-Gunakan [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) alih-alih ReplicaSet untuk Pod yang menyediakan fungsi pada level mesin, seperti _monitoring_ mesin atau _logging_ mesin. Pod ini memiliki waktu hidup yang bergantung terhadap waktu hidup mesin: Pod perlu untuk berjalan pada mesin sebelum Pod lain dijalankan, dan aman untuk diterminasi ketika mesin siap untuk di-_reboot_ atau dimatikan. 
+Gunakan [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) alih-alih ReplicaSet untuk Pod yang menyediakan fungsi pada level mesin, seperti _monitoring_ mesin atau _logging_ mesin. Pod ini memiliki waktu hidup yang bergantung terhadap waktu hidup mesin: Pod perlu untuk berjalan pada mesin sebelum Pod lain dijalankan, dan aman untuk diterminasi ketika mesin rede untuk di-_reboot_ atau dimatikan. 
 
 ### ReplicationController
 
